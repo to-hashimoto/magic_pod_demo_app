@@ -23,6 +23,8 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
         title = "ユーザー登録"
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 56 / 255.0, green: 142 / 255.0, blue: 60 / 255.0, alpha: 1.0)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
 
         view.backgroundColor = UIColor(red: 236 / 255.0, green: 240 / 255.0, blue: 241 / 255.0, alpha: 1.0)
 

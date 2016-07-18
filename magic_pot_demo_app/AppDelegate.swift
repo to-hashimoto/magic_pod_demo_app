@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = window {
             window.backgroundColor = UIColor.whiteColor()
-            let vc = MenuViewController()
+            //let vc = MenuViewController()
+            let vc = SignupViewController()
             let nvc = UINavigationController(rootViewController: vc)
             nvc.navigationBar.barStyle = UIBarStyle.Black
             window.rootViewController = nvc
