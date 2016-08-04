@@ -92,7 +92,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         sexPicker.dataSource = self
         sexField.inputView = sexPicker
 
-        registerButton = UIButton(frame: CGRectMake(30, 324, view.frame.width - 60, 56.0))
+        registerButton = UIButton(frame: CGRectMake(30, 304, view.frame.width - 60, 56.0))
         registerButton.setTitle("登録", forState: UIControlState.Normal)
         registerButton.titleLabel?.font = UIFont.boldSystemFontOfSize(20.0)
         registerButton.setBackgroundImage(UIImage(named: "ButtonBase"), forState: UIControlState.Normal)
