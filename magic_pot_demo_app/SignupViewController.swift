@@ -8,12 +8,11 @@
 
 import UIKit
 
-class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegate {
 
     fileprivate var nameField: UITextField!
     fileprivate var nameError: UILabel = UILabel()
     fileprivate var sexField: UITextField!
-    fileprivate var sexPicker: UIPickerView!
     fileprivate var sexError: UILabel = UILabel()
     fileprivate var registerButton: UIButton!
     fileprivate var messageView: UIView!
@@ -60,8 +59,11 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         view.addSubview(nameError)
 
         sexField = UITextField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0))
+        sexField.clearButtonMode = UITextFieldViewMode.whileEditing
         sexField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
         sexField.backgroundColor = UIColor.white
+        sexField.returnKeyType = UIReturnKeyType.done
+        sexField.delegate = self
         leftView = UILabel()
         leftView.text = "    性別"
         leftView.sizeToFit()
@@ -86,11 +88,6 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         sexError.frame = CGRect(x: 72, y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0, width: sexError.bounds.size.width, height: sexError.bounds.size.height)
         sexError.alpha = 0
         view.addSubview(sexError)
-
-        sexPicker = UIPickerView()
-        sexPicker.delegate = self
-        sexPicker.dataSource = self
-        sexField.inputView = sexPicker
 
         registerButton = UIButton(frame: CGRect(x: 30, y: 304, width: view.frame.width - 60, height: 56.0))
         registerButton.setTitle("登録", for: UIControlState())
@@ -117,34 +114,6 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 3
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if row == 0 {
-            return ""
-        } else if row == 1 {
-            return "男性"
-        } else {
-            return "女性"
-        }
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if row == 0 {
-            sexField.text = ""
-        } else if row == 1 {
-            sexField.text = "男性"
-        } else {
-            sexField.text = "女性"
-        }
     }
 
     func registerPressed(_ sender: UIButton) {
