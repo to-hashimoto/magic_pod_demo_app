@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="MagicPot" translatesAutoresizingMaskIntoConstraints="NO" id="maL-87-n6w">
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="MagicPod" translatesAutoresizingMaskIntoConstraints="NO" id="maL-87-n6w">
                                 <frame key="frameInset" minX="144.5" minY="217" width="311" height="166"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="maL-87-n6w" secondAttribute="height" multiplier="15:8" id="uP6-td-FCu"/>
@@ -39,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MagicPot" width="200" height="166"/>
+        <image name="MagicPod" width="200" height="166"/>
     </resources>
 </document>

@@ -80,7 +80,7 @@
 			dependencies = (
 			);
 			name = magic_pod_demo_app;
-			productName = magic_pot_demo_app;
+			productName = magic_pod_demo_app;
 			productReference = 08A5C0431D3CAE0F00D8DD31 /* magic_pod_demo_app.app */;
 			productType = "com.apple.product-type.application";
 		};
