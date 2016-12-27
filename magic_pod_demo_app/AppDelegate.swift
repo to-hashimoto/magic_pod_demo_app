@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  magic_pot_demo_app
+//  magic_pod_demo_app
 //
 //  Created by Hidenori Kojima on 2016/07/17.
 //  Copyright © 2016年 TRIDENT. All rights reserved.

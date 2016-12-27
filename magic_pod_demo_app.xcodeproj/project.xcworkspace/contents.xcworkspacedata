@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:magic_pot_demo_app.xcodeproj">
+      location = "self:magic_pod_demo_app.xcodeproj">
    </FileRef>
 </Workspace>
