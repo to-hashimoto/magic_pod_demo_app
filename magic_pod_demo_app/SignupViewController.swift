@@ -23,13 +23,13 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         title = "ユーザー登録"
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = UIColor(red: 56 / 255.0, green: 142 / 255.0, blue: 60 / 255.0, alpha: 1.0)
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         view.backgroundColor = UIColor(red: 236 / 255.0, green: 240 / 255.0, blue: 241 / 255.0, alpha: 1.0)
 
         nameField = UITextField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0))
-        nameField.clearButtonMode = UITextFieldViewMode.whileEditing
-        nameField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        nameField.clearButtonMode = UITextField.ViewMode.whileEditing
+        nameField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         nameField.backgroundColor = UIColor.white
         nameField.returnKeyType = UIReturnKeyType.done
         nameField.delegate = self
@@ -39,7 +39,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         var frame = leftView.frame
         leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
         nameField.leftView = leftView
-        nameField.leftViewMode = UITextFieldViewMode.always
+        nameField.leftViewMode = UITextField.ViewMode.always
         var topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0, width: nameField.bounds.size.width, height: 0.5)
         topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
@@ -59,8 +59,8 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         view.addSubview(nameError)
 
         sexField = UITextField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0))
-        sexField.clearButtonMode = UITextFieldViewMode.whileEditing
-        sexField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        sexField.clearButtonMode = UITextField.ViewMode.whileEditing
+        sexField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         sexField.backgroundColor = UIColor.white
         sexField.returnKeyType = UIReturnKeyType.done
         sexField.delegate = self
@@ -70,7 +70,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         frame = leftView.frame
         leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
         sexField.leftView = leftView
-        sexField.leftViewMode = UITextFieldViewMode.always
+        sexField.leftViewMode = UITextField.ViewMode.always
         topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0, width: sexField.bounds.size.width, height: 0.5)
         topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
@@ -90,11 +90,11 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         view.addSubview(sexError)
 
         registerButton = UIButton(frame: CGRect(x: 30, y: 304, width: view.frame.width - 60, height: 56.0))
-        registerButton.setTitle("登録", for: UIControlState())
+        registerButton.setTitle("登録", for: UIControl.State())
         registerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
-        registerButton.setBackgroundImage(UIImage(named: "ButtonBase"), for: UIControlState())
-        registerButton.setBackgroundImage(UIImage(named: "ButtonBasePressed"), for: UIControlState.highlighted)
-        registerButton.addTarget(self, action: #selector(SignupViewController.registerPressed(_:)), for: UIControlEvents.touchUpInside)
+        registerButton.setBackgroundImage(UIImage(named: "ButtonBase"), for: UIControl.State())
+        registerButton.setBackgroundImage(UIImage(named: "ButtonBasePressed"), for: UIControl.State.highlighted)
+        registerButton.addTarget(self, action: #selector(SignupViewController.registerPressed(_:)), for: UIControl.Event.touchUpInside)
         view.addSubview(registerButton)
 
         messageView = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 64.0))
@@ -116,7 +116,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         // Dispose of any resources that can be recreated.
     }
 
-    func registerPressed(_ sender: UIButton) {
+    @objc func registerPressed(_ sender: UIButton) {
         dismissKeyboard()
 
         nameError.alpha = 0
@@ -138,7 +138,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         alert.view.tintColor = UIColor.black
         let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
         loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.style = UIActivityIndicatorView.Style.gray
         loadingIndicator.startAnimating();
 
         alert.view.addSubview(loadingIndicator)
@@ -151,7 +151,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
             self.nameField.textColor = UIColor.gray
             self.sexField.isEnabled = false
             self.sexField.textColor = UIColor.gray
-            UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions(), animations: {
                 let frame = self.messageView.frame
                 self.messageView.frame = CGRect(x: frame.origin.x, y: frame.origin.y - frame.size.height, width: frame.size.width, height: frame.size.height)
                 self.registerButton.alpha = 0
@@ -161,7 +161,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
 
                 let delayTime = DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                 DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                    UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
+                    UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions(), animations: {
                         let frame = self.messageView.frame
                         self.messageView.frame = CGRect(x: frame.origin.x, y: frame.origin.y + frame.size.height, width: frame.size.width, height: frame.size.height)
                     }, completion: nil)
@@ -176,7 +176,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         return true
     }
 
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
