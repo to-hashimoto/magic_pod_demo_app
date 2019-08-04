@@ -14,6 +14,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
     fileprivate var nameError: UILabel!
     fileprivate var sexField: UITextField!
     fileprivate var sexError: UILabel!
+    fileprivate var registerBackButton: UIButton!
     fileprivate var registerButton: UIButton!
     fileprivate var messageView: UIView!
 
@@ -30,12 +31,14 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         sexField = createInputField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0), text: "    性別")
         nameError = createErrorLabel(y: nameField.frame.origin.y + nameField.bounds.size.height + 8.0)
         sexError = createErrorLabel(y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0)
+        registerBackButton = self.createButton(title: "戻る", target: self,selector: #selector(SignupViewController.registerBackPressed(_:)), event: UIControl.Event.touchUpInside)
         registerButton = self.createButton(title: "登録", target: self,selector: #selector(SignupViewController.registerPressed(_:)), event: UIControl.Event.touchUpInside)
         messageView = createMessageView()
         view.addSubview(nameField)
         view.addSubview(sexField)
         view.addSubview(nameError)
         view.addSubview(sexError)
+        view.addSubview(registerBackButton)
         view.addSubview(registerButton)
         view.addSubview(messageView)
 
@@ -101,6 +104,19 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
 
             })
         }
+    }
+    
+    @objc func registerBackPressed(_ sender: UIButton) {
+        nameError.alpha = 0
+        nameField.isEnabled = true
+        nameField.textColor = UIColor.black
+        nameField.text = ""
+        sexError.alpha = 0
+        sexField.isEnabled = true
+        sexField.textColor = UIColor.black
+        sexField.text = ""
+        registerButton.isHidden = false
+        registerButton.alpha = 1        
     }
     
     func createMessageView() -> UIView{
