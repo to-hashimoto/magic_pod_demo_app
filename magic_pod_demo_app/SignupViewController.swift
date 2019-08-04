@@ -26,31 +26,17 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         view.backgroundColor = UIColor(red: 236 / 255.0, green: 240 / 255.0, blue: 241 / 255.0, alpha: 1.0)
-        nameField = self.createInputField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0), text: "    名前")
-        sexField = self.createInputField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0), text: "    性別")
-        view.addSubview(nameField)
-        view.addSubview(sexField)
+        nameField = createInputField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0), text: "    名前")
+        sexField = createInputField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0), text: "    性別")
         nameError = createErrorLabel(y: nameField.frame.origin.y + nameField.bounds.size.height + 8.0)
         sexError = createErrorLabel(y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0)
+        registerButton = self.createButton(title: "登録", target: self,selector: #selector(SignupViewController.registerPressed(_:)), event: UIControl.Event.touchUpInside)
+        messageView = createMessageView()
+        view.addSubview(nameField)
+        view.addSubview(sexField)
         view.addSubview(nameError)
         view.addSubview(sexError)
-
-        registerButton = UIButton(frame: CGRect(x: 30, y: 304, width: view.frame.width - 60, height: 56.0))
-        registerButton.setTitle("登録", for: UIControl.State())
-        registerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
-        registerButton.setBackgroundImage(UIImage(named: "ButtonBase"), for: UIControl.State())
-        registerButton.setBackgroundImage(UIImage(named: "ButtonBasePressed"), for: UIControl.State.highlighted)
-        registerButton.addTarget(self, action: #selector(SignupViewController.registerPressed(_:)), for: UIControl.Event.touchUpInside)
         view.addSubview(registerButton)
-
-        messageView = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 64.0))
-        messageView.backgroundColor = UIColor(white: 0, alpha: 0.6)
-        let label = UILabel()
-        label.text = "登録しました！"
-        label.textColor = UIColor.white
-        label.sizeToFit()
-        label.frame = CGRect(x: 15, y: (messageView.bounds.size.height - label.frame.height) / 2.0, width: label.bounds.size.width, height: label.bounds.size.height)
-        messageView.addSubview(label)
         view.addSubview(messageView)
 
         let tgr = UITapGestureRecognizer(target: self, action: #selector(SignupViewController.dismissKeyboard))
@@ -115,6 +101,28 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
 
             })
         }
+    }
+    
+    func createMessageView() -> UIView{
+        messageView = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 64.0))
+        messageView.backgroundColor = UIColor(white: 0, alpha: 0.6)
+        let label = UILabel()
+        label.text = "登録しました！"
+        label.textColor = UIColor.white
+        label.sizeToFit()
+        label.frame = CGRect(x: 15, y: (messageView.bounds.size.height - label.frame.height) / 2.0, width: label.bounds.size.width, height: label.bounds.size.height)
+        messageView.addSubview(label)
+        return messageView
+    }
+    
+    func createButton(title: String, target: Any?, selector: Selector, event:UIControl.Event) -> (UIButton) {
+        let button = UIButton(frame: CGRect(x: 30, y: 304, width: view.frame.width - 60, height: 56.0))
+        button.setTitle(title, for: UIControl.State())
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
+        button.setBackgroundImage(UIImage(named: "ButtonBase"), for: UIControl.State())
+        button.setBackgroundImage(UIImage(named: "ButtonBasePressed"), for: UIControl.State.highlighted)
+        button.addTarget(target, action: selector, for: event)
+        return button
     }
     
     func createErrorLabel(y: CGFloat) -> (UILabel) {
