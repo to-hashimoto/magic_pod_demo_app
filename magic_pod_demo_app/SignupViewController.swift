@@ -11,9 +11,9 @@ import UIKit
 class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegate {
 
     fileprivate var nameField: UITextField!
-    fileprivate var nameError: UILabel = UILabel()
+    fileprivate var nameError: UILabel!
     fileprivate var sexField: UITextField!
-    fileprivate var sexError: UILabel = UILabel()
+    fileprivate var sexError: UILabel!
     fileprivate var registerButton: UIButton!
     fileprivate var messageView: UIView!
 
@@ -26,67 +26,13 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         view.backgroundColor = UIColor(red: 236 / 255.0, green: 240 / 255.0, blue: 241 / 255.0, alpha: 1.0)
-
-        nameField = UITextField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0))
-        nameField.clearButtonMode = UITextField.ViewMode.whileEditing
-        nameField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        nameField.backgroundColor = UIColor.white
-        nameField.returnKeyType = UIReturnKeyType.done
-        nameField.delegate = self
-        var leftView = UILabel()
-        leftView.text = "    名前"
-        leftView.sizeToFit()
-        var frame = leftView.frame
-        leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
-        nameField.leftView = leftView
-        nameField.leftViewMode = UITextField.ViewMode.always
-        var topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0, y: 0, width: nameField.bounds.size.width, height: 0.5)
-        topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        nameField.layer.addSublayer(topBorder)
-        var bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0, y: nameField.bounds.size.height - 0.5, width: nameField.bounds.size.width, height: 0.5)
-        bottomBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        nameField.layer.addSublayer(bottomBorder)
+        nameField = self.createInputField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0), text: "    名前")
+        sexField = self.createInputField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0), text: "    性別")
         view.addSubview(nameField)
-
-        nameError.text = "入力してください"
-        nameError.textColor = UIColor(red: 231 / 255.0, green: 76 / 255.0, blue: 60 / 255.0, alpha: 1.0)
-        nameError.font = nameError.font.withSize(12.0)
-        nameError.sizeToFit()
-        nameError.frame = CGRect(x: 72, y: nameField.frame.origin.y + nameField.bounds.size.height + 8.0, width: nameError.bounds.size.width, height: nameError.bounds.size.height)
-        nameError.alpha = 0
-        view.addSubview(nameError)
-
-        sexField = UITextField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0))
-        sexField.clearButtonMode = UITextField.ViewMode.whileEditing
-        sexField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        sexField.backgroundColor = UIColor.white
-        sexField.returnKeyType = UIReturnKeyType.done
-        sexField.delegate = self
-        leftView = UILabel()
-        leftView.text = "    性別"
-        leftView.sizeToFit()
-        frame = leftView.frame
-        leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
-        sexField.leftView = leftView
-        sexField.leftViewMode = UITextField.ViewMode.always
-        topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0, y: 0, width: sexField.bounds.size.width, height: 0.5)
-        topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        sexField.layer.addSublayer(topBorder)
-        bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0, y: sexField.bounds.size.height - 0.5, width: sexField.bounds.size.width, height: 0.5)
-        bottomBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        sexField.layer.addSublayer(bottomBorder)
         view.addSubview(sexField)
-
-        sexError.text = "入力してください"
-        sexError.textColor = UIColor(red: 231 / 255.0, green: 76 / 255.0, blue: 60 / 255.0, alpha: 1.0)
-        sexError.font = sexError.font.withSize(12.0)
-        sexError.sizeToFit()
-        sexError.frame = CGRect(x: 72, y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0, width: sexError.bounds.size.width, height: sexError.bounds.size.height)
-        sexError.alpha = 0
+        nameError = createErrorLabel(y: nameField.frame.origin.y + nameField.bounds.size.height + 8.0)
+        sexError = createErrorLabel(y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0)
+        view.addSubview(nameError)
         view.addSubview(sexError)
 
         registerButton = UIButton(frame: CGRect(x: 30, y: 304, width: view.frame.width - 60, height: 56.0))
@@ -170,7 +116,55 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
             })
         }
     }
+    
+    func createErrorLabel(y: CGFloat) -> (UILabel) {
+        let label = UILabel()
+        label.text = "入力してください"
+        label.textColor = UIColor(red: 231 / 255.0, green: 76 / 255.0, blue: 60 / 255.0, alpha: 1.0)
+        label.font = label.font.withSize(12.0)
+        label.sizeToFit()
+        label.frame = CGRect(x: 72, y: y, width: label.bounds.size.width, height: label.bounds.size.height)
+        label.alpha = 0
+        return label
+    }
+    
+    func createInputField(frame: CGRect, text: String) -> (UITextField) {
+        let inputField = UITextField(frame: frame)
+        inputField.clearButtonMode = UITextField.ViewMode.whileEditing
+        inputField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        inputField.backgroundColor = UIColor.white
+        inputField.returnKeyType = UIReturnKeyType.done
+        inputField.delegate = self
+        inputField.leftView = self.createLeftView(text: text)
+        inputField.leftViewMode = UITextField.ViewMode.always
+        inputField.layer.addSublayer(self.createTopBorder(width: inputField.bounds.size.width))
+        inputField.layer.addSublayer(self.createBottomBorder(height: inputField.bounds.size.height, width: inputField.bounds.size.width))
+        return inputField
+    }
+    
+    func createLeftView(text: String) -> (UILabel) {
+        let leftView = UILabel()
+        leftView.text = text
+        leftView.sizeToFit()
+        let frame = leftView.frame
+        leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
+        return leftView
+    }
+    
+    func createTopBorder(width: CGFloat) -> (CALayer) {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0, y: 0, width: width, height: 0.5)
+        topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
+        return topBorder
+    }
 
+    func createBottomBorder(height: CGFloat, width: CGFloat) -> (CALayer) {
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x: 0, y: height - 0.5, width: width, height: 0.5)
+        bottomBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
+        return bottomBorder
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         dismissKeyboard()
         return true
