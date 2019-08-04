@@ -21,18 +21,18 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "ユーザー登録"
+        title = "viewTitle".localized
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = UIColor(red: 56 / 255.0, green: 142 / 255.0, blue: 60 / 255.0, alpha: 1.0)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         view.backgroundColor = UIColor(red: 236 / 255.0, green: 240 / 255.0, blue: 241 / 255.0, alpha: 1.0)
-        nameField = createInputField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0), text: "    名前")
-        sexField = createInputField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0), text: "    性別")
+        nameField = createInputField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0), text: "nameFieldLabel".localized)
+        sexField = createInputField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0), text: "sexFieldLabel".localized)
         nameError = createErrorLabel(y: nameField.frame.origin.y + nameField.bounds.size.height + 8.0)
         sexError = createErrorLabel(y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0)
-        registerBackButton = self.createButton(title: "戻る", target: self,selector: #selector(SignupViewController.registerBackPressed(_:)), event: UIControl.Event.touchUpInside)
-        registerButton = self.createButton(title: "登録", target: self,selector: #selector(SignupViewController.registerPressed(_:)), event: UIControl.Event.touchUpInside)
+        registerBackButton = self.createButton(title: "registerBackButtonTitle".localized, target: self,selector: #selector(SignupViewController.registerBackPressed(_:)), event: UIControl.Event.touchUpInside)
+        registerButton = self.createButton(title: "registerButtonTitle".localized, target: self,selector: #selector(SignupViewController.registerPressed(_:)), event: UIControl.Event.touchUpInside)
         messageView = createMessageView()
         view.addSubview(nameField)
         view.addSubview(sexField)
@@ -68,7 +68,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         }
         if (!valid) { return }
 
-        let alert = UIAlertController(title: nil, message: "登録しています...", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "registeringLabel".localized, preferredStyle: .alert)
 
         alert.view.tintColor = UIColor.black
         let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
@@ -123,7 +123,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         messageView = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 64.0))
         messageView.backgroundColor = UIColor(white: 0, alpha: 0.6)
         let label = UILabel()
-        label.text = "登録しました！"
+        label.text = "didRegisterLabel".localized
         label.textColor = UIColor.white
         label.sizeToFit()
         label.frame = CGRect(x: 15, y: (messageView.bounds.size.height - label.frame.height) / 2.0, width: label.bounds.size.width, height: label.bounds.size.height)
@@ -143,7 +143,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
     
     func createErrorLabel(y: CGFloat) -> (UILabel) {
         let label = UILabel()
-        label.text = "入力してください"
+        label.text = "pleaseInputLabel".localized
         label.textColor = UIColor(red: 231 / 255.0, green: 76 / 255.0, blue: 60 / 255.0, alpha: 1.0)
         label.font = label.font.withSize(12.0)
         label.sizeToFit()
