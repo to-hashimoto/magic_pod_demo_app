@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  magic_pod_demo_app
+
+  Created by Masayuki Wakizaka on 2019/08/05.
+  Copyright © 2019 TRIDENT. All rights reserved.
+*/
+
+"viewTitle" = "ユーザー登録";
+"nameFieldLabel" = "    名前";
+"sexFieldLabel" = "    性別";
+"registerBackButtonTitle" = "戻る";
+"registerButtonTitle" = "登録";
+"registeringLabel" = "登録しています...";
+"didRegisterLabel" = "登録しました！";
+"pleaseInputLabel" = "入力してください";

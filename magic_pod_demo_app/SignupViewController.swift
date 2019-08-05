@@ -11,100 +11,35 @@ import UIKit
 class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegate {
 
     fileprivate var nameField: UITextField!
-    fileprivate var nameError: UILabel = UILabel()
+    fileprivate var nameError: UILabel!
     fileprivate var sexField: UITextField!
-    fileprivate var sexError: UILabel = UILabel()
+    fileprivate var sexError: UILabel!
+    fileprivate var registerBackButton: UIButton!
     fileprivate var registerButton: UIButton!
     fileprivate var messageView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "ユーザー登録"
+        title = "viewTitle".localized
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = UIColor(red: 56 / 255.0, green: 142 / 255.0, blue: 60 / 255.0, alpha: 1.0)
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         view.backgroundColor = UIColor(red: 236 / 255.0, green: 240 / 255.0, blue: 241 / 255.0, alpha: 1.0)
-
-        nameField = UITextField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0))
-        nameField.clearButtonMode = UITextFieldViewMode.whileEditing
-        nameField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        nameField.backgroundColor = UIColor.white
-        nameField.returnKeyType = UIReturnKeyType.done
-        nameField.delegate = self
-        var leftView = UILabel()
-        leftView.text = "    名前"
-        leftView.sizeToFit()
-        var frame = leftView.frame
-        leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
-        nameField.leftView = leftView
-        nameField.leftViewMode = UITextFieldViewMode.always
-        var topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0, y: 0, width: nameField.bounds.size.width, height: 0.5)
-        topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        nameField.layer.addSublayer(topBorder)
-        var bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0, y: nameField.bounds.size.height - 0.5, width: nameField.bounds.size.width, height: 0.5)
-        bottomBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        nameField.layer.addSublayer(bottomBorder)
+        nameField = createInputField(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 56.0), text: "nameFieldLabel".localized)
+        sexField = createInputField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0), text: "sexFieldLabel".localized)
+        nameError = createErrorLabel(y: nameField.frame.origin.y + nameField.bounds.size.height + 8.0)
+        sexError = createErrorLabel(y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0)
+        registerBackButton = self.createButton(title: "registerBackButtonTitle".localized, target: self,selector: #selector(SignupViewController.registerBackPressed(_:)), event: UIControl.Event.touchUpInside)
+        registerButton = self.createButton(title: "registerButtonTitle".localized, target: self,selector: #selector(SignupViewController.registerPressed(_:)), event: UIControl.Event.touchUpInside)
+        messageView = createMessageView()
         view.addSubview(nameField)
-
-        nameError.text = "入力してください"
-        nameError.textColor = UIColor(red: 231 / 255.0, green: 76 / 255.0, blue: 60 / 255.0, alpha: 1.0)
-        nameError.font = nameError.font.withSize(12.0)
-        nameError.sizeToFit()
-        nameError.frame = CGRect(x: 72, y: nameField.frame.origin.y + nameField.bounds.size.height + 8.0, width: nameError.bounds.size.width, height: nameError.bounds.size.height)
-        nameError.alpha = 0
-        view.addSubview(nameError)
-
-        sexField = UITextField(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 56.0))
-        sexField.clearButtonMode = UITextFieldViewMode.whileEditing
-        sexField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        sexField.backgroundColor = UIColor.white
-        sexField.returnKeyType = UIReturnKeyType.done
-        sexField.delegate = self
-        leftView = UILabel()
-        leftView.text = "    性別"
-        leftView.sizeToFit()
-        frame = leftView.frame
-        leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
-        sexField.leftView = leftView
-        sexField.leftViewMode = UITextFieldViewMode.always
-        topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0, y: 0, width: sexField.bounds.size.width, height: 0.5)
-        topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        sexField.layer.addSublayer(topBorder)
-        bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0, y: sexField.bounds.size.height - 0.5, width: sexField.bounds.size.width, height: 0.5)
-        bottomBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
-        sexField.layer.addSublayer(bottomBorder)
         view.addSubview(sexField)
-
-        sexError.text = "入力してください"
-        sexError.textColor = UIColor(red: 231 / 255.0, green: 76 / 255.0, blue: 60 / 255.0, alpha: 1.0)
-        sexError.font = sexError.font.withSize(12.0)
-        sexError.sizeToFit()
-        sexError.frame = CGRect(x: 72, y: sexField.frame.origin.y + sexField.bounds.size.height + 8.0, width: sexError.bounds.size.width, height: sexError.bounds.size.height)
-        sexError.alpha = 0
+        view.addSubview(nameError)
         view.addSubview(sexError)
-
-        registerButton = UIButton(frame: CGRect(x: 30, y: 304, width: view.frame.width - 60, height: 56.0))
-        registerButton.setTitle("登録", for: UIControlState())
-        registerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
-        registerButton.setBackgroundImage(UIImage(named: "ButtonBase"), for: UIControlState())
-        registerButton.setBackgroundImage(UIImage(named: "ButtonBasePressed"), for: UIControlState.highlighted)
-        registerButton.addTarget(self, action: #selector(SignupViewController.registerPressed(_:)), for: UIControlEvents.touchUpInside)
+        view.addSubview(registerBackButton)
         view.addSubview(registerButton)
-
-        messageView = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 64.0))
-        messageView.backgroundColor = UIColor(white: 0, alpha: 0.6)
-        let label = UILabel()
-        label.text = "登録しました！"
-        label.textColor = UIColor.white
-        label.sizeToFit()
-        label.frame = CGRect(x: 15, y: (messageView.bounds.size.height - label.frame.height) / 2.0, width: label.bounds.size.width, height: label.bounds.size.height)
-        messageView.addSubview(label)
         view.addSubview(messageView)
 
         let tgr = UITapGestureRecognizer(target: self, action: #selector(SignupViewController.dismissKeyboard))
@@ -116,7 +51,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         // Dispose of any resources that can be recreated.
     }
 
-    func registerPressed(_ sender: UIButton) {
+    @objc func registerPressed(_ sender: UIButton) {
         dismissKeyboard()
 
         nameError.alpha = 0
@@ -133,12 +68,12 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         }
         if (!valid) { return }
 
-        let alert = UIAlertController(title: nil, message: "登録しています...", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "registeringLabel".localized, preferredStyle: .alert)
 
         alert.view.tintColor = UIColor.black
         let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
         loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.style = UIActivityIndicatorView.Style.gray
         loadingIndicator.startAnimating();
 
         alert.view.addSubview(loadingIndicator)
@@ -151,7 +86,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
             self.nameField.textColor = UIColor.gray
             self.sexField.isEnabled = false
             self.sexField.textColor = UIColor.gray
-            UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions(), animations: {
                 let frame = self.messageView.frame
                 self.messageView.frame = CGRect(x: frame.origin.x, y: frame.origin.y - frame.size.height, width: frame.size.width, height: frame.size.height)
                 self.registerButton.alpha = 0
@@ -161,7 +96,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
 
                 let delayTime = DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                 DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                    UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
+                    UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions(), animations: {
                         let frame = self.messageView.frame
                         self.messageView.frame = CGRect(x: frame.origin.x, y: frame.origin.y + frame.size.height, width: frame.size.width, height: frame.size.height)
                     }, completion: nil)
@@ -170,13 +105,96 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
             })
         }
     }
+    
+    @objc func registerBackPressed(_ sender: UIButton) {
+        nameError.alpha = 0
+        nameField.isEnabled = true
+        nameField.textColor = UIColor.black
+        nameField.text = ""
+        sexError.alpha = 0
+        sexField.isEnabled = true
+        sexField.textColor = UIColor.black
+        sexField.text = ""
+        registerButton.isHidden = false
+        registerButton.alpha = 1        
+    }
+    
+    func createMessageView() -> UIView{
+        messageView = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 64.0))
+        messageView.backgroundColor = UIColor(white: 0, alpha: 0.6)
+        let label = UILabel()
+        label.text = "didRegisterLabel".localized
+        label.textColor = UIColor.white
+        label.sizeToFit()
+        label.frame = CGRect(x: 15, y: (messageView.bounds.size.height - label.frame.height) / 2.0, width: label.bounds.size.width, height: label.bounds.size.height)
+        messageView.addSubview(label)
+        return messageView
+    }
+    
+    func createButton(title: String, target: Any?, selector: Selector, event:UIControl.Event) -> (UIButton) {
+        let button = UIButton(frame: CGRect(x: 30, y: 304, width: view.frame.width - 60, height: 56.0))
+        button.setTitle(title, for: UIControl.State())
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
+        button.setBackgroundImage(UIImage(named: "ButtonBase"), for: UIControl.State())
+        button.setBackgroundImage(UIImage(named: "ButtonBasePressed"), for: UIControl.State.highlighted)
+        button.addTarget(target, action: selector, for: event)
+        return button
+    }
+    
+    func createErrorLabel(y: CGFloat) -> (UILabel) {
+        let label = UILabel()
+        label.text = "pleaseInputLabel".localized
+        label.textColor = UIColor(red: 231 / 255.0, green: 76 / 255.0, blue: 60 / 255.0, alpha: 1.0)
+        label.font = label.font.withSize(12.0)
+        label.sizeToFit()
+        label.frame = CGRect(x: 72, y: y, width: label.bounds.size.width, height: label.bounds.size.height)
+        label.alpha = 0
+        return label
+    }
+    
+    func createInputField(frame: CGRect, text: String) -> (UITextField) {
+        let inputField = UITextField(frame: frame)
+        inputField.clearButtonMode = UITextField.ViewMode.whileEditing
+        inputField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        inputField.backgroundColor = UIColor.white
+        inputField.returnKeyType = UIReturnKeyType.done
+        inputField.delegate = self
+        inputField.leftView = self.createLeftView(text: text)
+        inputField.leftViewMode = UITextField.ViewMode.always
+        inputField.layer.addSublayer(self.createTopBorder(width: inputField.bounds.size.width))
+        inputField.layer.addSublayer(self.createBottomBorder(height: inputField.bounds.size.height, width: inputField.bounds.size.width))
+        return inputField
+    }
+    
+    func createLeftView(text: String) -> (UILabel) {
+        let leftView = UILabel()
+        leftView.text = text
+        leftView.sizeToFit()
+        let frame = leftView.frame
+        leftView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + 24.0, height: frame.size.height)
+        return leftView
+    }
+    
+    func createTopBorder(width: CGFloat) -> (CALayer) {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0, y: 0, width: width, height: 0.5)
+        topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
+        return topBorder
+    }
 
+    func createBottomBorder(height: CGFloat, width: CGFloat) -> (CALayer) {
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x: 0, y: height - 0.5, width: width, height: 0.5)
+        bottomBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
+        return bottomBorder
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         dismissKeyboard()
         return true
     }
 
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
