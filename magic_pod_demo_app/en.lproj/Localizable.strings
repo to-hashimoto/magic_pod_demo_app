@@ -7,8 +7,8 @@
 */
 
 "viewTitle" = "User Registration";
-"nameFieldLabel" = "    Name";
-"sexFieldLabel" = "    Gender";
+"nameFieldLabel" = "    Name   ";
+"sexFieldLabel" = "    Gender  ";
 "registerBackButtonTitle" = "Back";
 "registerButtonTitle" = "Register";
 "registeringLabel" = "Registering...";
