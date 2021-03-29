@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = window {
             window.backgroundColor = UIColor.white
-            let vc = SignupViewController()
+            let vc = SplashViewController()
             let nvc = UINavigationController(rootViewController: vc)
             nvc.navigationBar.barStyle = UIBarStyle.black
             window.rootViewController = nvc

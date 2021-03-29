@@ -13,6 +13,8 @@
 		08A5C0591D3CAE2E00D8DD31 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A5C0581D3CAE2E00D8DD31 /* SignupViewController.swift */; };
 		29028D4322F794A000DEE0CE /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29028D4222F794A000DEE0CE /* StringExtension.swift */; };
 		29028D4622F797F800DEE0CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29028D4822F797F800DEE0CE /* Localizable.strings */; };
+		29B4C58B2611B5AA00F898FA /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4C58A2611B5AA00F898FA /* SplashViewController.swift */; };
+		29B4C58F2611B63300F898FA /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29B4C58E2611B63300F898FA /* SignUp.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		29028D4222F794A000DEE0CE /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		29028D4722F797F800DEE0CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		29028D4922F797F900DEE0CE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		29B4C58A2611B5AA00F898FA /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		29B4C58E2611B63300F898FA /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 		08A5C0451D3CAE0F00D8DD31 /* magic_pod_demo_app */ = {
 			isa = PBXGroup;
 			children = (
+				29B4C58A2611B5AA00F898FA /* SplashViewController.swift */,
 				08A5C0461D3CAE0F00D8DD31 /* AppDelegate.swift */,
 				08A5C04D1D3CAE0F00D8DD31 /* Assets.xcassets */,
 				08A5C04F1D3CAE0F00D8DD31 /* LaunchScreen.storyboard */,
@@ -66,6 +71,7 @@
 				08A5C0581D3CAE2E00D8DD31 /* SignupViewController.swift */,
 				29028D4222F794A000DEE0CE /* StringExtension.swift */,
 				29028D4822F797F800DEE0CE /* Localizable.strings */,
+				29B4C58E2611B63300F898FA /* SignUp.storyboard */,
 			);
 			path = magic_pod_demo_app;
 			sourceTree = "<group>";
@@ -133,6 +139,7 @@
 			files = (
 				08A5C0511D3CAE0F00D8DD31 /* LaunchScreen.storyboard in Resources */,
 				29028D4622F797F800DEE0CE /* Localizable.strings in Resources */,
+				29B4C58F2611B63300F898FA /* SignUp.storyboard in Resources */,
 				08A5C04E1D3CAE0F00D8DD31 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,6 +154,7 @@
 				29028D4322F794A000DEE0CE /* StringExtension.swift in Sources */,
 				08A5C0591D3CAE2E00D8DD31 /* SignupViewController.swift in Sources */,
 				08A5C0471D3CAE0F00D8DD31 /* AppDelegate.swift in Sources */,
+				29B4C58B2611B5AA00F898FA /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
