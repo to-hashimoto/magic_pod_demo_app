@@ -171,15 +171,15 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UITextFieldD
         return leftView
     }
     
-    func createTopBorder(width: CGFloat) -> (CALayer) {
-        let topBorder = CALayer()
+    func createTopBorder(width: CGFloat) -> (CAGradientLayer) {
+        let topBorder = CAGradientLayer()
         topBorder.frame = CGRect(x: 0, y: 0, width: width, height: 0.5)
         topBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
         return topBorder
     }
 
-    func createBottomBorder(height: CGFloat, width: CGFloat) -> (CALayer) {
-        let bottomBorder = CALayer()
+    func createBottomBorder(height: CGFloat, width: CGFloat) -> (CAGradientLayer) {
+        let bottomBorder = CAGradientLayer()
         bottomBorder.frame = CGRect(x: 0, y: height - 0.5, width: width, height: 0.5)
         bottomBorder.backgroundColor = UIColor(red: 149 / 255.0, green: 165 / 255.0, blue: 166 / 255.0, alpha: 1.0).cgColor
         return bottomBorder
